@@ -10,7 +10,8 @@
     "@material-ui/core": "^4.1.2",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "latest",
-    "react": "^16.8.6",
+    "axios": "^0.19.0",
+    "react": "latest",
     "react-autobind": "^1.0.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
@@ -35,6 +36,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://simple-api.sandbox.movavi.com/"
+  }
 }

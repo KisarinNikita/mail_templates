@@ -1,19 +1,16 @@
-import * as React from "react";
-
 const initialState: any = {
-    categories: {}
+  categories: {}
 };
 
 export default function Categories(state = initialState, action) {
-    switch (action.type) {
-        case 'TEST':
-            console.log(action.payload);
-            return {
-                ...state,
-            };
+  switch(action.type) {
+    case 'TEST':
+      console.log(action.payload);
+      return {
+        ...state,
+      };
 
-
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
+import { readCategory } from '../Actions/categoriesAction';
 
 class Categories extends Component<any, any> {
     constructor(props) {
@@ -10,6 +11,10 @@ class Categories extends Component<any, any> {
         this.state = {
         };
     }
+
+  componentWillMount() {
+    this.props.getCategoryAll();
+  }
 
     render() {
 
@@ -23,8 +28,9 @@ class Categories extends Component<any, any> {
 
 
 const mapStateToProps = state => ({
+
 });
 
 export default connect(
-    mapStateToProps, {},
+    mapStateToProps, { readCategory },
 )(Categories);

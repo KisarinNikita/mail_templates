@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
 
 class Main extends Component<any, any> {
@@ -15,7 +14,7 @@ class Main extends Component<any, any> {
 
         return (
             <div>
-                главная
+                Главная
             </div>
         );
     }
