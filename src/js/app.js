@@ -17,7 +17,7 @@ class App extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Nav/>
-          <div className="content">
+          <div className="container">
             <Switch>
               <Route path="/" exact component={Main}/>
               <Route path="/categories" component={Categories}/>

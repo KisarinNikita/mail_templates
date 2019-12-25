@@ -1,0 +1,74 @@
+html {
+    line-height: 1.15;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Open Sans", "Segoe ui", "Droid Sans", Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.container {
+    padding: 0 20px;
+    margin: 0 auto;
+    width: 984px;
+}
+
+.nav {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #c3c3c3;
+    margin-bottom: 25px;
+}
+
+.nav a {
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+.tr--small{
+    width: 100px;
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(000, 000, 000, 0.75);
+    z-index: 50;
+}
+
+.modal {
+    width: 500px;
+    position: absolute;
+    background: #fff;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    min-height: 300px;
+    padding: 20px;
+}
+
+.modal h2{
+    margin-top: 0;
+}

@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import autoBind from 'react-autobind';
 
-class Messages extends Component<any, any> {
+class Messages extends Component {
     constructor(props) {
         super(props);
         autoBind(this);
