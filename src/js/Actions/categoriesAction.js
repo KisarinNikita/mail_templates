@@ -23,7 +23,7 @@ export const deleteCategoryAction = (id) => dispatch => {
   }).then(res => {
     dispatch({
       type: 'DELETE_CATEGORY_SUCCESS',
-      payload: res.result
+      payload: id
     });
   }).catch(err => {
     dispatch({
@@ -33,3 +33,52 @@ export const deleteCategoryAction = (id) => dispatch => {
   });
 };
 
+export const createCategoryAction = (title, parent) => dispatch => {
+  return API('createCategory', {
+    data: { title: title, parent: parent ? { id: parent } : null },
+  }).then(res => {
+    dispatch({
+      type: 'CREATE_CATEGORY_SUCCESS',
+      payload: {
+        id: res.result["Primary key"]["id"],
+        title: title,
+        messages: [],
+        parent: parent ? { id: parent } : null
+      }
+    });
+  }).catch(err => {
+    dispatch({
+      type: 'CREATE_CATEGORY_FAILED',
+      payload: err
+    });
+  });
+};
+
+export const updateCategoryAction = (id, title, parent) => dispatch => {
+  return API('createCategory', {
+    conditions: ["id", "=", id],
+    data: { title: title, parent: parent ? { id: parent } : null },
+  }).then(res => {
+    dispatch({
+      type: 'UPDATE_CATEGORY_SUCCESS',
+      payload: {
+        id: id,
+        title: title,
+        messages: [],
+        parent: parent ? { id: parent } : null
+      }
+    });
+  }).catch(err => {
+    dispatch({
+      type: 'UPDATE_CATEGORY_FAILED',
+      payload: err
+    });
+  });
+};
+
+export const searchFilterAction = (data) => dispatch => {
+  dispatch({
+    type: 'SEARCH_FILTER_SUCCESS',
+    payload: data
+  });
+};
