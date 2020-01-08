@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import {Component} from 'react';
+import {connect} from 'react-redux';
 import autoBind from 'react-autobind';
 
 import Table from '@material-ui/core/Table';
@@ -27,7 +27,7 @@ class Categories extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
-    const { categories } = props;
+    const {categories} = props;
     this.state = {
       categories,
       openEditModal: false,
@@ -39,7 +39,8 @@ class Categories extends Component {
       },
       activePage: 1,
       rowsPerPage: 5,
-      count: this.props.ids.length
+      count: this.props.ids.length,
+      query: ''
     };
   }
 
@@ -48,15 +49,16 @@ class Categories extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (state.categories !== props.categories.data) {
+    const isSearchEmpty = props.searchQuery.trim() === '';
+
+    if (state.categories !== props.categories.data || props.searchQuery.trim() !== '') {
       return {
-        categories: props.categories.data,
+        categories: isSearchEmpty ? props.categories.data : props.filtered,
         openEditModal: false,
         openCreateModal: false,
-        count: props.ids.length
+        count: isSearchEmpty ? props.ids.length : props.filtered.length
       };
     }
-    if (props.searchQuery !== '') return { categories: props.filtered };
     return state;
   }
 
@@ -76,21 +78,21 @@ class Categories extends Component {
   };
 
   openUpdateModal(id, title, parent) {
-    this.setState({ ...this.state, update: {id: id, title: title, parent: parent}}, () =>
-      this.setState({ ...this.state, openEditModal: true})
+    this.setState({...this.state, update: {id: id, title: title, parent: parent}}, () =>
+      this.setState({...this.state, openEditModal: true})
     );
   };
 
   openCreateModal() {
-    this.setState({ ...this.state, openCreateModal: true });
+    this.setState({...this.state, openCreateModal: true});
   };
 
   closeEditModal() {
-    this.setState({ ...this.state, openEditModal: false });
+    this.setState({...this.state, openEditModal: false});
   }
 
   closeCreateModal() {
-    this.setState({ ...this.state, openCreateModal: false });
+    this.setState({...this.state, openCreateModal: false});
   }
 
 
@@ -98,7 +100,7 @@ class Categories extends Component {
     const from = (Number(this.state.activePage) * Number(this.state.rowsPerPage)) - Number(this.state.rowsPerPage);
     const to = Number(this.state.activePage) * Number(this.state.rowsPerPage);
     const rows = this.state.categories.map((item, i) =>
-      ((from < Number(i)+1) && (Number(i)+1 <= to)) ? (
+      ((from < Number(i) + 1) && (Number(i) + 1 <= to)) && (
         <TableRow key={item.id}>
           <TableCell>
             {item.id}
@@ -117,20 +119,18 @@ class Categories extends Component {
             <button onClick={() => this.deleteCategory(item.id, item.title)}>Удалить</button>
           </TableCell>
         </TableRow>
-      ) : (
-          <></>
-        )
+      )
     );
-
     return <>{rows}</>;
   };
 
-  filterList(e){
+  filterList(e) {
+    this.setState({...this.state, query: e.target.value});
     this.props.searchFilterAction(e.target.value);
   }
 
   handlePageChange(pageNumber) {
-    this.setState({ ...this.state, activePage: pageNumber });
+    this.setState({...this.state, activePage: pageNumber});
   }
 
   render() {
@@ -162,7 +162,7 @@ class Categories extends Component {
         <TextField
           label="Поиск по названию"
           type="text"
-          onChange={(e) => this.filterList(e)}
+          onKeyUp={(e) => this.filterList(e)}
           variant="outlined"
         />
 
@@ -182,12 +182,18 @@ class Categories extends Component {
           </TableBody>
         </Table>
 
-        <Pagination
-          activePage={this.state.activePage}
-          itemsCountPerPage={this.state.rowsPerPage}
-          totalItemsCount={this.state.count}
-          onChange={this.handlePageChange}
-        />
+
+        {this.state.categories && this.state.categories.length === 0 && <p>Список категорий пуст</p>}
+
+        {this.state.categories && this.state.categories.length !== 0 &&
+          <Pagination
+            activePage={this.state.activePage}
+            itemsCountPerPage={this.state.rowsPerPage}
+            totalItemsCount={this.state.count}
+            onChange={this.handlePageChange}
+          />
+        }
+
         {createCategoryModal}
         {updateCategoryModal}
       </div>
@@ -204,5 +210,11 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps, { readCategoryAction, deleteCategoryAction, createCategoryAction, updateCategoryAction, searchFilterAction },
+  mapStateToProps, {
+    readCategoryAction,
+    deleteCategoryAction,
+    createCategoryAction,
+    updateCategoryAction,
+    searchFilterAction
+  },
 )(Categories);

@@ -1,6 +1,6 @@
 const initialState: any = {
   ids: [],
-  data: {},
+  data: [],
   searchQuery: '',
   filtered: {}
 };
