@@ -36,7 +36,7 @@ class UpdateCategory extends Component {
 
     return (
       <div>
-        <h3>Создание категории</h3>
+        <h3>Редактирование категории</h3>
         <div className="row">
           <TextField
             label="Редактирование категории"

@@ -96,7 +96,7 @@ class Categories extends Component {
   }
 
 
-  renderRows = () => {
+  renderCategories = () => {
     const from = (Number(this.state.activePage) * Number(this.state.rowsPerPage)) - Number(this.state.rowsPerPage);
     const to = Number(this.state.activePage) * Number(this.state.rowsPerPage);
     const rows = this.state.categories.map((item, i) =>
@@ -159,14 +159,17 @@ class Categories extends Component {
 
     return (
       <div>
-        <TextField
-          label="Поиск по названию"
-          type="text"
-          onKeyUp={(e) => this.filterList(e)}
-          variant="outlined"
-        />
+        <div className="options-row">
+          <TextField
+            label="Поиск по названию"
+            type="text"
+            onKeyUp={(e) => this.filterList(e)}
+            variant="outlined"
+          />
 
-        <button onClick={() => this.openCreateModal()}>Добавить категорию</button>
+          <button onClick={() => this.openCreateModal()}>Добавить категорию</button>
+        </div>
+
         <Table>
           <TableHead>
             <TableRow>
@@ -178,7 +181,7 @@ class Categories extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.categories && this.renderRows()}
+            {this.state.categories && this.renderCategories()}
           </TableBody>
         </Table>
 
