@@ -27,7 +27,7 @@ export default function Categories(state = initialState, action) {
       return {
         ...state,
         ids: [...state.ids, action.payload.id],
-        data: { ...state.data, data: [...state.data.data, action.payload], count: state.data.count++ }
+        data: { ...state.data, data: [action.payload, ...state.data.data], count: state.data.count++ }
       };
 
     case 'UPDATE_CATEGORY_SUCCESS':
@@ -45,7 +45,7 @@ export default function Categories(state = initialState, action) {
           })}
       };
 
-    case 'SEARCH_FILTER_SUCCESS':
+    case 'SEARCH_FILTER_CATEGORY_SUCCESS':
       return {
         ...state,
         searchQuery: action.payload,

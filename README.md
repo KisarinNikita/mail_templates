@@ -13,4 +13,10 @@ yarn install
 ```
 yarn run start
 ```
+### Открыть локально по ссылке
+
+```
+ http://localhost:3000/
+```        
+
 

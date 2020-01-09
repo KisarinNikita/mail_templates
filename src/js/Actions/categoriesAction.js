@@ -55,7 +55,7 @@ export const createCategoryAction = (title, parent) => dispatch => {
 };
 
 export const updateCategoryAction = (id, title, parent) => dispatch => {
-  return API('createCategory', {
+  return API('updateCategory', {
     conditions: ["id", "=", id],
     data: { title: title, parent: parent ? { id: parent } : null },
   }).then(res => {
@@ -76,9 +76,9 @@ export const updateCategoryAction = (id, title, parent) => dispatch => {
   });
 };
 
-export const searchFilterAction = (data) => dispatch => {
+export const searchFilterCategoryAction = (data) => dispatch => {
   dispatch({
-    type: 'SEARCH_FILTER_SUCCESS',
+    type: 'SEARCH_FILTER_CATEGORY_SUCCESS',
     payload: data
   });
 };

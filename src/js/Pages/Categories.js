@@ -17,7 +17,7 @@ import {
   deleteCategoryAction,
   createCategoryAction,
   updateCategoryAction,
-  searchFilterAction
+  searchFilterCategoryAction
 } from '../Actions/categoriesAction';
 import CreateCategory from "../Components/CreateCategory";
 import UpdateCategory from "../Components/UpdateCategory";
@@ -40,7 +40,6 @@ class Categories extends Component {
       activePage: 1,
       rowsPerPage: 5,
       count: this.props.ids.length,
-      query: ''
     };
   }
 
@@ -50,7 +49,6 @@ class Categories extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const isSearchEmpty = props.searchQuery.trim() === '';
-
     if (state.categories !== props.categories.data || props.searchQuery.trim() !== '') {
       return {
         categories: isSearchEmpty ? props.categories.data : props.filtered,
@@ -125,8 +123,7 @@ class Categories extends Component {
   };
 
   filterList(e) {
-    this.setState({...this.state, query: e.target.value});
-    this.props.searchFilterAction(e.target.value);
+    this.props.searchFilterCategoryAction(e.target.value);
   }
 
   handlePageChange(pageNumber) {
@@ -134,7 +131,6 @@ class Categories extends Component {
   }
 
   render() {
-
     const updateCategoryModal = (
       <Modal
         isOpen={this.state.openEditModal}
@@ -185,7 +181,6 @@ class Categories extends Component {
           </TableBody>
         </Table>
 
-
         {this.state.categories && this.state.categories.length === 0 && <p>Список категорий пуст</p>}
 
         {this.state.categories && this.state.categories.length !== 0 &&
@@ -218,6 +213,6 @@ export default connect(
     deleteCategoryAction,
     createCategoryAction,
     updateCategoryAction,
-    searchFilterAction
+    searchFilterCategoryAction
   },
 )(Categories);
